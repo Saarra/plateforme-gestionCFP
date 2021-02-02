@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <mat-card>
+        Le nombre d'inscription par formation
+      </mat-card>
+    </div>
+    <div class="col-12">
+      <div style="display: block">
+        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6" >
+      <mat-card>
+        Le nombre de formations créés annuellement
+      </mat-card>
+    </div>
+    <div class="col-12">
+      <div style="display: block">
+        <canvas baseChart [datasets]="barChart2Data" [labels]="barChart2Labels" [options]="barChartOptions"
+                [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </div>
+  </div>
+</div>

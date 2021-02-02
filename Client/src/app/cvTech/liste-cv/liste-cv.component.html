@@ -1,0 +1,6 @@
+<ol class="list-group">
+    <!-- [formateur] ="formateurs[0]" -->
+    <app-item-cv *ngFor="let cv of cvformateurs" (selectedFormateur) ="selectFormateur($event)"
+    [cvformateur] = "cv">
+    </app-item-cv>
+</ol>

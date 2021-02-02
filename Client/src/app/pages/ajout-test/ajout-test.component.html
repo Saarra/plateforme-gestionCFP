@@ -1,0 +1,142 @@
+<!-- header bg -->
+
+<div class="card card-stats">
+  <h1 style="text-align: center;">Créer un test niveaux</h1>
+</div>
+
+<div class="wizard-container">
+  <div class="card wizard-card ct-wizard-orange" id="wizard">
+    <div class="col-md-6 col-xl-6 col-lg-6 col-12">
+      <div class="form-row">
+        <label>Titre du test</label>
+        <input type="text" class="form-control" id="validationCustom01" [(ngModel)]="test.nomTest">
+        <div *ngIf="submitted &&test.nomTest===''" class="text-danger">
+          <div>Champs vide ou invalide</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xl-6 col-lg-6 col-12">
+      <label>Formation</label>
+      <ng-select2 width="100%" [data]="formations" [(ngModel)]="test.idFormation"
+                  class="select" [placeholder]="'Formation'"></ng-select2>
+      <div *ngIf="submitted &&test.idFormation===''" class="text-danger">
+        <div>Champs vide ou invalide</div>
+      </div>
+    </div>
+    <br>
+    <div class="col-12">
+      <label>Questions</label>
+      <div class="col-12" style=" overflow: auto; white-space: nowrap;">
+        <table class="row-border hover dataTable no-footer dtr-inline collapsed">
+
+          <thead>
+          <tr>
+            <th width="30px">Question</th>
+            <th width="100px">Question</th>
+            <th width="100px">Reponse 1</th>
+            <th width="100px">Reponse 2</th>
+            <th width="100px">Reponse 3</th>
+          </tr>
+          </thead>
+          <tbody style="    height: 100px !important;">
+          <div *ngIf="submitted &&test.questions.length===0" class="text-danger">
+            <div>Aucun Question</div>
+          </div>
+          <tr *ngFor="let data of test.questions;let i=index;" style="vertical-align: top;">
+            <td>
+              <button (click)="deleteQuestion(i)"
+                      class="delRow btn btn-danger btn-sm btn-md waves-effect waves-light"
+                      style=" margin: 0px 4px; padding: 5px 8px;"><i class="fa fa-trash"></i></button>
+            </td>
+            <td>
+              {{data.designation}}
+            </td>
+            <td style="vertical-align: top;">
+              <input width="100%" [value]="data.reponse_1"
+                     class="form-control" [disabled]="true">
+            </td>
+            <td>
+              <input width="100%" [value]="data.reponse_2"
+                     class="form-control" [disabled]="true">
+            </td>
+            <td>
+              <input width="100%" [value]="data.reponse_3"
+                     class="form-control" [disabled]="true">
+            </td>
+          </tr>
+         <!-- <tr style="vertical-align: top;">
+            <td>
+              <button (click)="saveQuestion()"
+                      class="delRow btn btn-success btn-sm btn-md waves-effect waves-light"
+                      style=" margin: 0px 4px; padding: 5px 8px;"
+                      [disabled]="question.designation === ''|| question.reponse_1 === '' || question.reponse_1=== '' || question.reponse_3=== 'empty'">
+                <i class="fas fa-check-double"></i>
+              </button>
+            </td>
+            <td>
+                <textarea rows="4" width="100%" [(ngModel)]="question.designation"
+                          class="form-control"></textarea>
+            </td>
+            <td style="vertical-align: top;">
+                <textarea rows="4" width="100%" [(ngModel)]="question.reponse_1"
+                          class="form-control"></textarea>
+            </td>
+            <td>
+                <textarea rows="4" width="100%" [(ngModel)]="question.reponse_2"
+                          class="form-control"></textarea>
+            </td>
+            <td>
+                <textarea rows="4" width="100%" [(ngModel)]="question.reponse_3"
+                          class="form-control"></textarea>
+            </td>
+          </tr>-->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-6 col-xl-6 col-lg-6 col-12">
+      <div class="form-row">
+        <label>Question</label>
+        <textarea rows="4" width="100%" [(ngModel)]="question.designation"
+                  class="form-control"></textarea>
+      </div>
+    </div>
+    <div class="col-md-6 col-xl-6 col-lg-6 col-12">
+      <div class="form-row">
+        <label>Reponse 1</label>
+        <textarea rows="4" width="100%" [(ngModel)]="question.reponse_1"
+                  class="form-control"></textarea>
+      </div>
+    </div>
+    <div class="col-md-6 col-xl-6 col-lg-6 col-12">
+      <div class="form-row">
+        <label>Reponse 2</label>
+        <textarea rows="4" width="100%" [(ngModel)]="question.reponse_2"
+                  class="form-control"></textarea>
+      </div>
+    </div>
+    <div class="col-md-6 col-xl-6 col-lg-6 col-12">
+      <div class="form-row">
+        <label>Reponse 3</label>
+        <textarea rows="4" width="100%" [(ngModel)]="question.reponse_3"
+                  class="form-control"></textarea>
+      </div>
+    </div>
+    <div class="col-md-6 col-xl-6 col-lg-6 col-12">
+      <div class="form-row">
+        <button (click)="saveQuestion()"
+                class="delRow btn btn-success btn-sm btn-md waves-effect waves-light"
+                style=" margin: 0px 4px; padding: 5px 8px;"
+                [disabled]="question.designation === ''|| question.reponse_1 === '' || question.reponse_1=== '' || question.reponse_3=== 'empty'">
+          <i class="fas fa-check-double"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+
+      <button class="btn btn-primary" type="submit" (click)="confirmSave()">Enregistrer</button>
+    </div>
+  </div>
+</div>
+ <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

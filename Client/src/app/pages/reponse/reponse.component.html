@@ -1,0 +1,62 @@
+<div class="card card-stats">
+  <h1 style="text-align: center;">Les  reponses du test</h1>
+</div>
+<div class="wizard-container">
+  <div class="card wizard-card ct-wizard-orange" id="wizard">
+    <div class="col-md-6 col-xl-6 col-lg-6 col-12">
+      <label>Formation</label>
+      <ng-select2 width="100%" [data]="formations" (valueChanged)="getTests($event)"
+                  class="select" [placeholder]="'Formation'"></ng-select2>
+
+    </div>
+    <div class="col-md-6 col-xl-6 col-lg-6 col-12">
+      <label>Test</label>
+      <ng-select2 width="100%" [data]="tests"  (valueChanged)="changeTest($event)"
+                  class="select" [placeholder]="'Test'"></ng-select2>
+
+    </div>
+    <div class="col-md-6 col-xl-6 col-lg-6 col-12">
+      <label>Apprenant</label>
+      <ng-select2 width="100%" [data]="apprenants"  (valueChanged)="getReponses($event)"
+                  class="select" [placeholder]="'Apprenant'"></ng-select2>
+
+    </div>
+    <br>
+    <div class="col-12">
+      <label>Reponse</label>
+      <div class="col-12" style=" overflow: auto; white-space: nowrap;">
+        <mat-horizontal-stepper linear #stepper>
+          <mat-step *ngFor="let reponse of reponses let i= index" [label]="i+1">
+
+            <div class="col-md-6 col-xl-6 col-lg-6 col-6">
+              <div class="form-row">
+                <label>Question</label>
+                <textarea rows="4" width="100%" [(ngModel)]="reponse.question"
+                          class="form-control" disabled></textarea>
+              </div>
+              <div class="p-grid" style="width:250px;margin-bottom:10px;margin-top:10px">
+
+                <div class="p-col-12">
+                  <p-radioButton name="x" label="Correct"></p-radioButton>
+                </div>
+                <div class="p-col-12">
+                  <p-radioButton name="y" label="Faux"inputId="preopt3"></p-radioButton>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-6 col-lg-6 col-12">
+              <div class="form-row">
+                <label>Reponse</label>
+                <textarea rows="4" width="100%" [(ngModel)]="reponse.reponse"
+                          class="form-control" disabled></textarea>
+              </div>
+            </div>
+            <button color="primary" *ngIf="i!==0" mat-button matStepperPrevious>Précédent</button>
+            <button color="primary" *ngIf="i<reponses.length-1" mat-button matStepperNext>Suivant</button>
+          </mat-step>
+        </mat-horizontal-stepper>
+
+      </div>
+    </div>
+  </div>
+</div>

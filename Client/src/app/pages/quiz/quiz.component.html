@@ -1,0 +1,57 @@
+<h1 style="text-align: center; font-family:'Courier New', Courier, monospace; color:blue;">Voilà votre test bon
+  courage</h1>
+  <form class="container" action="grade.php" method="post" id="quiz">
+    <h1> {{test.nomTest}} </h1>
+  </form>
+
+    <mat-horizontal-stepper linear #stepper>
+      <mat-step *ngFor="let question of test.questions let i= index" [label]="i+1">
+        <h3>{{question.designation}}</h3>
+        <div class="p-grid" style="width:250px;margin-bottom:10px">
+          <div class="p-col-12">
+            <p-radioButton name="reponse_1" value="{{question.reponse_1}}" label="{{question.reponse_1}}"
+                           [(ngModel)]="question.selected" inputId="preopt1"></p-radioButton>
+          </div>
+          <div class="p-col-12">
+            <p-radioButton name="reponse_2" value="{{question.reponse_2}}" label="{{question.reponse_2}}"
+                           [(ngModel)]="question.selected" inputId="preopt2"></p-radioButton>
+          </div>
+          <div class="p-col-12">
+            <p-radioButton name="reponse3" value="{{question.reponse_3}}" label="{{question.reponse_3}}"
+                           [(ngModel)]="question.selected" inputId="preopt3"></p-radioButton>
+          </div>
+        </div>
+        <button color="primary" *ngIf="i!==0" mat-button matStepperPrevious>Précédent</button>
+        <button color="primary" *ngIf="i<test.questions.length-1" mat-button matStepperNext>Suivant</button>
+        <button class="btn btn-primary" style="float: right" (click)="save()" *ngIf="i===test.questions.length-1">Envoyer</button>
+      </mat-step>
+    </mat-horizontal-stepper>
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<!-- <div class="row" *ngIf="quizService.qns && this.quizService.qnProgress != 10">
+  <div class="col s8 offset-s2">
+    <span>Time Elapsed : {{quizService.displayTimeElapsed()}}</span>
+    <div class="progress">
+      <div class="determinate" [style.width.%]="(quizService.qnProgress+1)*10"></div>
+    </div>
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <span class="card-title">{{quizService.qnProgress+1}}</span>
+        <p>{{quizService.qns[quizService.qnProgress].Qn}}</p>
+        <div *ngIf="quizService.qns[quizService.qnProgress].ImageName!=null">
+          <img class="center" [src]="quizService.rootUrl+'/Images/'+quizService.qns[quizService.qnProgress].ImageName" style="width:350px;height:200px">
+        </div>
+      </div>
+      <div class="card-action">
+        <ul class="collection answer">
+          <ng-container *ngFor="let option of quizService.qns[quizService.qnProgress].Options;let i = index">
+            <li *ngIf="option != null" class="collection-item" (click)="Answer(quizService.qns[quizService.qnProgress].QnID,i)">
+              {{option}}
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div> -->

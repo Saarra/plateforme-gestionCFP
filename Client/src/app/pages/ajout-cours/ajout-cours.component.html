@@ -1,0 +1,46 @@
+<div class="header-body">
+    <div class="card card-stats">
+      <h1 style="text-align: center;"> Ajouter un cours </h1>
+    </div>
+    <div>
+      <button class="btn btn-info" (click)="back()"  routerLinkActive="router-link-active" >La liste des cours</button>
+    </div>
+  </div>
+  <div class="container">
+      <div class="row justify-content-center">
+          <div class="col-md-8">
+              <div class="card justify-content-center">
+                <form [formGroup]="form">
+                      <div class="form-row">
+                          <div class="col-md-6 mb-3">
+                            <label >Formation</label>
+                            <!--<input type="text" class="form-control" id="validationCustom01" placeholder="" value="" required>-->
+                            <ng-select2 width="100%" [data]="formations" [value]="idFormation" [disabled]="idFormation!==undefined"
+                                        formControlName="idFormation"
+                                        class="select" [placeholder]="'Formation'"></ng-select2>
+                          </div>
+                      </div>
+                      <div class="form-row">
+                          <div class="col-md-6 mb-3">
+                            <label for="validationCustom02">Nom cours</label>
+                            <input type="text" class="form-control" id="validationCustom02" placeholder="" value="" formControlName="nomCours">
+                          </div>
+                      </div>
+                      <div class="form-row">
+                          <div class="col-md-6 mb-3">
+                            <label for="validationCustom03">Description du cours</label>
+                            <input type="text" class="form-control" id="validationCustom03" placeholder="" value="" formControlName="descCours">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="fichier" >Support du cours </label>
+                        <br>
+                        <input id="fichier" type="file" (change)="changefile($event)" class="btn btn-outline-info">
+                        <button class="btn btn-primary" type="submit" (click)="this.form.value.id===''?save(): edit()">Envoyer</button>
+                      </div>
+                    </form>
+              </div>
+
+          </div>
+      </div>
+  </div>

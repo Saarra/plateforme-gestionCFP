@@ -1,0 +1,63 @@
+
+  <!-- <div class="container-fluid"> -->
+    <div class="card-header">
+      <h2>Proposez-vous une formation ou déclarez-vous sur un problème !  </h2>    
+  <h2>Nous avons la bien écoute <i class="far fa-smile-beam"></i></h2>
+    </div>
+  <!-- </div> -->
+<div class="container">    
+  <form>    
+    <div class="row">    
+      <div class="col-25">    
+        <label for="fname">Prénom</label>    
+      </div>    
+      <div class="col-75">    
+        <input type="text" id="fname" name="firstname" placeholder="votre prénom" *ngIf="current_Feedback" [(ngModel)]="current_Feedback.firstname">    
+      </div>    
+    </div>    
+    <div class="row">    
+      <div class="col-25">    
+        <label for="lname">Nom</label>    
+      </div>    
+      <div class="col-75">    
+        <input type="text" id="lname" name="lastname" placeholder="votre nom" *ngIf="current_Feedback" [(ngModel)]="current_Feedback.name">    
+      </div>    
+    </div>    
+    <div class="row">    
+        <div class="col-25">    
+          <label for="email">E-mail</label>    
+        </div>    
+        <div class="col-75">    
+          <input type="email" id="email" name="email" placeholder="foulen@example.com" *ngIf="current_Feedback" [(ngModel)]="current_Feedback.email">    
+        </div>    
+      </div>    
+    <div class="row">    
+      <div class="col-25">    
+        <label for="sujet">Sujet</label>    
+      </div>    
+      <div class="col-75">    
+        <select id="sujet" name="sujet" *ngIf="current_Feedback" [(ngModel)]="current_Feedback.sujet"> 
+            <option checked value="Proposition d'une formation">Proposition d'une formation </option>    
+            <option value="Réclamation sur un problème">Réclamation sur un problème </option>  
+            <option value="Autre">Autre</option>  
+        </select>    
+        
+      </div>    
+    </div>    
+    <div class="row">    
+      <div class="col-25">    
+        <label for="feed_back">Description</label>    
+      </div>    
+      <div class="col-75">    
+        <textarea id="subject" name="subject" placeholder="Écrivez ce que vous voulez...." style="height:200px" *ngIf="current_Feedback" [(ngModel)]="current_Feedback.description"></textarea>    
+      </div>    
+    </div>    
+    <div class="row">    
+      <div class="col-12">   
+         <div class="col-75">
+         <button type="button" class="btn btn-info" (click)="save()" (click)="new()">Enregistrer</button>
+         </div>
+    </div>      
+    </div>    
+  </form>    
+</div>   

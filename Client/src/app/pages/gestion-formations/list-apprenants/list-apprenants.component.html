@@ -1,0 +1,93 @@
+<div class="modal-header">
+  <span> {{titre}}</span>
+  <button type="button" class="close" aria-label="Close" (click)="close(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<!--<mat-card *ngIf="data.length==0" style="text-align: center">
+  Aucun donneés disponible
+</mat-card>-->
+<div class="row" >
+  <div class="col col-12">
+    <p-table  #dt
+              [columns]="cols"
+              [value]="data"
+              (onPage)="data.length"
+              [paginator]="true"
+              [rows]="5"
+              [rowsPerPageOptions]="[5,10,20,50,100]"
+              [totalRecords]="data.length"
+              [globalFilterFields]="cols"
+              [loading]="loading"
+              [scrollable]="false"
+              [resizableColumns]="true"
+              [style]="{width:'100%'}">
+      <ng-template pTemplate="paginatorleft" let-state>
+        <b>Total des lignes: {{dt._totalRecords}}</b>
+      </ng-template>
+      <ng-template pTemplate="caption">
+        <div style="text-align:left">
+          <input type="text" pInputText size="20" placeholder="Filtre Général"
+                 (input)="dt.filterGlobal($event.target['value'], 'contains')" class="form-control"
+                 style="width:auto;">
+        </div>
+        <div style="text-align:right">
+
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template let-columns let-index="colIndex" pTemplate="header">
+        <tr >
+          <!-- <th *ngIf="win.innerWidth<1700" width="40px"></th>-->
+          <th *ngFor="let col of columns" [ngSwitch]="col.field" [pSortableColumn]="col.field"
+              class={{col.class}} pResizableColumn>
+            {{col.header}}
+            <p-sortIcon *ngIf="col.field!=='action'" [field]="col.field"
+                        ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+          </th>
+        </tr>
+        <tr>
+          <th *ngFor="let col of columns" [ngSwitch]="col.field" class={{col.class}}>
+            <input size="10"  *ngIf="col.field!=='action'&&col.field!=='dateNais'"
+                   pInputText type="text" class="form-control "
+                   (input)="dt.filter($event.target['value'], col.field,'contains')">
+            <input size="10"  *ngIf="col.field==='dateNais'"
+                   pInputText type="date" class="form-control "
+                   (input)="dt.filter($event.target['value'], col.field,'contains')">
+
+          </th>
+        </tr>
+
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+          <td *ngFor="let col of columns" class={{col.class}}>
+            <sapn *ngIf="col.field==='action'">
+              <button class="btn btn-danger" (click)="confirmDelete(rowData)"><i class="fas fa-trash-alt"></i></button>
+            </sapn>
+            <span *ngIf="col.field !== 'action'">
+                 {{rowData[col.field]}}
+            </span>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+<div class="row">
+  <div class="col col-12">
+    <button class="btn btn-danger btn-sm btn-md waves-effect waves-light" (click)="close(false)"
+            style="float: right;width: 78px;height: 38px;margin: 10px">
+      Annuler
+    </button>
+
+  </div>
+</div>

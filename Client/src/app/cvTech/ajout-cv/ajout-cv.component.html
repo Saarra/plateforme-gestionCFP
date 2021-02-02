@@ -1,0 +1,85 @@
+<div class="col-12">
+  <div class="card bg-secondary shadow">
+    <div class="card-header bg-white border-0">
+      <div class="row align-items-center">
+        <div class="col-8">
+          <h3 class="mb-0">Mon compte</h3>
+        </div>
+        <div class="col-4 text-right">
+          <!-- <a href="#!" class="btn btn-sm btn-primary"></a> -->
+        </div>
+      </div>
+    </div>
+    <div class="card-body cv">
+      <form [formGroup]="form">
+        <h6 class="heading-small text-muted mb-4">Informations</h6>
+        <div class="pl-lg-4">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <div class="form-group">
+                <label class="form-control-label" for="input-username">Titre</label>
+                <input type="text" id="input-username" class="form-control form-control-alternative" name="name"
+                       formControlName="designation">
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <div class="form-group">
+                <label class="form-control-label" >Formateur</label>
+                <ng-select2 width="100%" [data]="formateurs" formControlName="idFormateur"
+                            class="select" [disabled]="user.codeRole!=='admin'"></ng-select2>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label class="form-control-label" for="input-email">Diplome</label>
+                <textarea rows="5" type="text" id="input-email" class="form-control form-control-alternative"
+                          name="email"
+                          formControlName="diplome"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label class="form-control-label" for="input-first-name">Experiénce</label>
+                <textarea rows="5" type="text" id="input-first-name" class="form-control form-control-alternative"
+                          name="name"
+                          formControlName="experience"></textarea>
+              </div>
+            </div>
+          </div>
+          <hr class="my-4"/>
+          <!-- Address -->
+          <h6 class="heading-small text-muted mb-4">Informations de contact</h6>
+            <div class="row">
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-linkedin">Facebook</label>
+                  <input id="input-facebook" class="form-control form-control-alternative" name="adresse" type="text"
+                         formControlName="facebook">
+                </div>
+              </div>
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-github">Github</label>
+                  <input id="input-github" class="form-control form-control-alternative" name="adresse" type="text"
+                         formControlName="github">
+                </div>
+              </div>
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-linkedin">LinkedIn</label>
+                  <input id="input-linkedin" class="form-control form-control-alternative" name="adresse" type="text"
+                         formControlName="linkedin">
+                </div>
+              </div>
+          </div>
+          <hr class="my-4"/>
+          <div class="col-15 text-right">
+            <button (click)="this.form.value.id===''?save():update()" class="btn btn-xl btn-primary">Enregistrer</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

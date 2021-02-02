@@ -1,0 +1,73 @@
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12">
+    <form [formGroup]="form">
+      <div class="ui-g-12">
+        <div class="ui-g-6">
+          <label >Formation</label>
+        </div>
+        <div class="ui-g-6">
+          <ng-select2 width="100%" [data]="formation" formControlName="idFormation"
+                      class="select" ></ng-select2>
+          <div *ngIf="submitted &&form.controls.idFormation.errors" class="text-danger">
+            <div>Champs vide ou invalide</div>
+          </div>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-6">
+          <label >Matérial</label>
+        </div>
+        <div class="ui-g-6">
+          <ng-select2 width="100%" [data]="material" formControlName="idMaterial"
+                      class="select" ></ng-select2>
+          <div *ngIf="submitted &&form.controls.idFormation.errors" class="text-danger">
+            <div>Champs vide ou invalide</div>
+          </div>
+        </div>
+      </div>
+      <div class="ui-g-12" *ngIf="user.codeRole==='admin'">
+        <div class="ui-g-6">
+          <label >Etat</label>
+        </div>
+        <div class="ui-g-6">
+          <ng-select2 width="100%" [data]="etats" formControlName="etat"
+                      class="select" ></ng-select2>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-6">
+          <label>Date Début</label>
+        </div>
+        <div class="ui-g-6 col-md-6">
+            <input  [ngxMatDatetimePicker]="date"  formControlName="dateDebut"
+                    >
+            <mat-datepicker-toggle  matSuffix [for]="date"></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #date [showSpinners]=true [showSeconds]=false
+                                     [touchUi]=true  [enableMeridian]=false >
+            </ngx-mat-datetime-picker>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-6">
+          <label>Date Fin</label>
+        </div>
+        <div class="ui-g-6 col-md-6">
+            <input  [ngxMatDatetimePicker]="date1"  formControlName="dateFin"
+                    [min]="form.value.dateDebut">
+            <mat-datepicker-toggle  matSuffix [for]="date1"></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #date1 [showSpinners]=true [showSeconds]=false
+                                     [touchUi]=true  [enableMeridian]=false >
+            </ngx-mat-datetime-picker>
+        </div>
+      </div>
+
+    </form>
+    <div   style="float: right">
+      <button type="reset" class="btn btn-danger" icon="fa fa-close" (click)="goBack()"
+              label="Annuler">Annuler</button>
+      <button type="submit" class="btn btn-primary" icon="fa fa-check" (click)="form.value.id===''?save(): update();"
+              label="Enregistrer">Enregistrer</button>
+    </div>
+  </div>
+</div>
+

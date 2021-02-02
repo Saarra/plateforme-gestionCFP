@@ -1,0 +1,9 @@
+<div class="row" *ngIf="cvformateurs">
+    <span *ngFor="let cvformateur of cvformateurs">
+        <li class="list-group-item" (click)="selectFormateur()">
+            <img src="{{pathImage + cvformateur.image}}"
+             alt="{{cvformateur.firstname}}" width="150px" height="150px" class="rounded-circle">
+            {{cvformateur.firstname}} {{cvformateur.name}}
+        </li>
+    </span>
+</div>

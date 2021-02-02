@@ -1,0 +1,188 @@
+    <!-- The Modal -->
+    <p-dialog header="Apprenant" [(visible)]="showModal" [style]="{width: '50vw'}" [baseZIndex]="10000">
+      <div class="ui-g ui-fluid">
+        <div class="ui-g-12">
+          <form [formGroup]="apprenantForm">
+            <div class="ui-g-12">
+              <div class="ui-g-4">
+                <label for="nom">Nom</label>
+              </div>
+              <div class="ui-g-6">
+                <input matInput class="form-control rounded-0" id="nom" formControlName="name">
+                <div *ngIf="submitted && apprenantForm.controls.name.errors" class="text-danger">
+                  <div>Champs vide ou invalide</div>
+                </div>
+              </div>
+            </div>
+            <div class="ui-g-12">
+              <div class="ui-g-4">
+                <label for="firstname">Prénom</label>
+              </div>
+              <div class="ui-g-6">
+                <input matInput class="form-control rounded-0" id="firstname" formControlName="firstname">
+                <div *ngIf="submitted && apprenantForm.controls.firstname.errors" class="text-danger">
+                  <div>Champs vide ou invalide</div>
+                </div>
+              </div>
+            </div>
+            <div class="ui-g-12">
+              <div class="ui-g-4">
+                <label for="email">E-mail</label>
+              </div>
+              <div class="ui-g-6">
+                <input matInput class="form-control rounded-0" id="email" formControlName="email">
+                <div *ngIf="submitted && apprenantForm.controls.email.errors" class="text-danger">
+                  <div>Email vide ou invalide</div>
+                </div>
+              </div>
+            </div>
+            <div class="ui-g-12">
+              <div class="ui-g-4">
+                <label for="adresse">Adresse</label>
+              </div>
+              <div class="ui-g-6">
+                <input matInput type="text" class="form-control rounded-0" id="adresse" formControlName="adresse">
+                <div *ngIf="submitted && apprenantForm.controls.adresse.errors" class="text-danger">
+                  <div>Champs vide ou invalide</div>
+                </div>
+              </div>
+            </div>
+            <div class="ui-g-12">
+              <div class="ui-g-4">
+                <label for="dateNais">Date Naissance</label>
+              </div>
+              <div class="ui-g-6">
+                <input class="form-control" id="dateNais"
+                       placeholder="Votre date naissance"
+                       type="date"  name="dateNais"
+                      formControlName="dateNais">
+                <div *ngIf="submitted && apprenantForm.controls.dateNais.errors" class="text-danger">
+                  <div>Champs vide ou invalide</div>
+                </div>
+              </div>
+            </div>
+            <div class="ui-g-12">
+              <div class="ui-g-4">
+                <label for="password">Mot de passe</label>
+              </div>
+              <div class="ui-g-6">
+                <input matInput type="password" class="form-control rounded-0" id="password" formControlName="password">
+                <div *ngIf="submitted && apprenantForm.controls.password.errors" class="text-danger">
+                  <div>Champs vide ou invalide</div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+          <button type="button" pButton icon="fa fa-close" (click)="showModal= false; initialForm()"
+                  label="Annuler"></button>
+          <button type="button" pButton icon="fa fa-check" (click)="apprenantForm.value.id===''?save(): update();"
+                  label="Enregistrer"></button>
+        </div>
+      </p-footer>
+    </p-dialog>
+<!-- header bg -->
+      <div class="header-body">
+        <div class="card card-stats">
+          <h1 style="text-align: center;">
+          La liste des apprenants
+          </h1>
+        </div>
+      </div>
+<div class="card-header bg-white border-0">
+  <div class="row align-items-center">
+    <div class="col-8">
+    </div>
+    <div class="col-4 text-right">
+      <button routerLinkActive="router-link-active"
+       class="btn btn-sm btn-primary" (click)="showModal=true; this.initialForm()">Ajouter un apprenant</button>
+    </div>
+  </div>
+</div>
+<div class="col-4 text-right">
+</div>
+<div>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h2>Liste des apprenants</h2>
+    </div>
+    <p-table  #dt
+              [columns]="cols"
+              [value]="data"
+              (onPage)="data.length"
+              [paginator]="true"
+              [rows]="5"
+              [rowsPerPageOptions]="[5,10,20,50,100]"
+              [totalRecords]="data.length"
+              [globalFilterFields]="cols"
+              [loading]="loading"
+              [scrollable]="false"
+              [resizableColumns]="true"
+              [style]="{width:'100%'}">
+      <ng-template pTemplate="paginatorleft" let-state>
+        <b>Total des lignes: {{dt._totalRecords}}</b>
+      </ng-template>
+      <ng-template pTemplate="caption">
+        <div style="text-align:left">
+          <input type="text" pInputText size="20" placeholder="Filtre Général"
+                 (input)="dt.filterGlobal($event.target['value'], 'contains')" class="form-control"
+                 style="width:auto;">
+        </div>
+        <div style="text-align:right">
+
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template let-columns let-index="colIndex" pTemplate="header">
+        <tr >
+          <!-- <th *ngIf="win.innerWidth<1700" width="40px"></th>-->
+          <th *ngFor="let col of columns" [ngSwitch]="col.field" [pSortableColumn]="col.field"
+              class={{col.class}} pResizableColumn>
+            {{col.header}}
+            <p-sortIcon *ngIf="col.field!=='action'" [field]="col.field"
+                        ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+          </th>
+        </tr>
+        <tr>
+          <th *ngFor="let col of columns" [ngSwitch]="col.field" class={{col.class}}>
+            <input size="10"  *ngIf="col.field!=='action'&&col.field!=='dateNais'"
+                   pInputText type="text" class="form-control "
+                   (input)="dt.filter($event.target['value'], col.field,'contains')">
+            <input size="10"  *ngIf="col.field==='dateNais'"
+                   pInputText type="date" class="form-control "
+                   (input)="dt.filter($event.target['value'], col.field,'contains')">
+
+          </th>
+        </tr>
+
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+          <td *ngFor="let col of columns">
+            <sapn *ngIf="col.field==='action'">
+              <button class="btn btn-danger" (click)="confirmDelete(rowData)"><i class="fas fa-trash-alt"></i></button>
+              <button class="btn btn-warning" (click)="apprenantForm.patchValue(rowData); showModal= true">
+                <i class="fas fa-user-edit"></i>
+              </button>
+            </sapn>
+            <span *ngIf="col.field !== 'action'">
+                 {{rowData[col.field]}}
+            </span>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
